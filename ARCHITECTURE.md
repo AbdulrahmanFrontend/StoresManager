@@ -86,31 +86,31 @@ Each module should contain:
 
 Example:
 
-Items
-- ItemDTO
-- clsItemsData
-- clsItem
-- frmItemsScreen
-- frmAddUPdateItem
-- frmEditItem
-- ctrItemCard (Optional)
+Categories
+- CategoryDTO
+- clsCategoriesData
+- clsCategory
+- frmCategoriesScreen
+- frmAddUPdateCategory
+- frmEditCategory
+- ctrCategoryCard (Optional)
 
 ---
 
 ## Naming Conventions
 
 ### Classes
-clsItem  
-clsItemsData  
-ItemDTO  
+clsCategory  
+clsCategoriesData  
+CategoryDTO  
 
 ### Forms
-frmItemsScreen  
-frmAddUpdateItem
-frmEditItem
+frmCategoriesScreen  
+frmAddUpdateCategory
+frmEditCategory
 
 ### User Controls
-ctrItemCard  
+ctrCategoryCard  
 
 ---
 

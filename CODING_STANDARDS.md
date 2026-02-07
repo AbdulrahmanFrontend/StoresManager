@@ -35,7 +35,7 @@ SaveUser
 camelCase
 
 Example:
-itemName
+CategoryName
 storeID
 
 ---

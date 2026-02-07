@@ -12,7 +12,7 @@ Each feature must have its own branch.
 
 Example:
 
-feature/items-Management  
+feature/Categories-Management  
 feature/user-management  
 
 ---
@@ -64,7 +64,7 @@ All database operations must go through BLL.
 
 Use clear messages:
 
-Add Items Screen  
+Add Categories Screen  
 Fix User Validation Bug  
 Improve Logging
 
