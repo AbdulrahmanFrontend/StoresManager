@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoresManager.DAL
 {
-    public class StoreRepository
+    public class class1
     {
-        public static void FindByStoreID(int StoreID)
-        {
-
-        }
     }
 }
