@@ -3,6 +3,9 @@
     <File Path="ARCHITECTURE.md" />
     <File Path="CODING_STANDARDS.md" />
     <File Path="CONTRIBUTING.md" />
+    <File Path="MVP_FEATURES.md" />
+    <File Path="SPRINT_PLAN.md" />
+    <File Path="TASK_BREAKDOWN.md" />
   </Folder>
   <Project Path="StoresManager.BLL/StoresManager.BLL.csproj" Id="143bcb6c-f2b5-43ad-ba0a-8fc06a2f073e" />
   <Project Path="StoresManager.DAL/StoresManager.DAL.csproj" Id="78b22035-87b3-439b-b036-b27851035d60" />
