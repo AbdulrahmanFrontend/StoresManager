@@ -204,8 +204,8 @@ ON TransactionTypes(TransactionType);
 CREATE TABLE [StoreStocks] (
   [StoreStockID] int NOT NULL IDENTITY(1, 1),
   [StoreID] int NOT NULL,
-  [CategoryID] int NOT NULL,
-  [Quantity] int NOT NULL
+  [CategoryID] int,
+  [Quantity] int
 )
 GO
 
@@ -218,9 +218,6 @@ ADD CONSTRAINT FK_StoreID_StoreStocks_Stores FOREIGN KEY (StoreID) REFERENCES St
 ALTER TABLE StoreStocks
 ADD CONSTRAINT FK_CategoryID_StoreStocks_Categories FOREIGN KEY (CategoryID)
 REFERENCES Categories(CategoryID);
-
-ALTER TABLE StoreStocks
-ADD CONSTRAINT DF_Quantity_0 DEFAULT (0) FOR Quantity;
 
 ALTER TABLE StoreStocks
 ADD CONSTRAINT CK_QuantityLargerThanOrEqualZero CHECK (Quantity >= 0);
