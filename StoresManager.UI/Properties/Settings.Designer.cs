@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StoresManager.UI.Properties
+namespace StoresManager.Properties
 {
 
 

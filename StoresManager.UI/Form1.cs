@@ -8,13 +8,42 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StoresManager.UI
+namespace StoresManager
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbUsername.Text))
+            {
+                CustomMessageBox.ShowMessage("Please enter email!", "Inventory Management System Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                tbUsername.Focus();
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(tbPassword.Text))
+            {
+                CustomMessageBox.ShowMessage("Please enter password!", "Inventory Management System Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                tbPassword.Focus();
+                return;
+            }
+
+
+        //this.Hide();
+        frmMain das = new StoresManager.frmMain();
+            das.ShowDialog();
+            //this.Show();
         }
     }
 }
