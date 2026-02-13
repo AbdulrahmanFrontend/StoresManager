@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsPublicOperations.cs" />
     <Compile Include="CustomMessageBox.cs" />
     <Compile Include="DashBoard.cs">
       <SubType>Form</SubType>
@@ -59,11 +60,29 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAddStore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddStore.Designer.cs">
+      <DependentUpon>frmAddStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCustomMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCustomMessageBox.Designer.cs">
       <DependentUpon>frmCustomMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmStores.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="frmStores.Designer.cs">
+      <DependentUpon>frmStores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmToast.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmToast.Designer.cs">
+      <DependentUpon>frmToast.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,8 +92,17 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddStore.resx">
+      <DependentUpon>frmAddStore.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCustomMessageBox.resx">
       <DependentUpon>frmCustomMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStores.resx">
+      <DependentUpon>frmStores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmToast.resx">
+      <DependentUpon>frmToast.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -143,6 +171,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-logout-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-information-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-close-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-checkmark-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-error-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-brake-warning-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-users-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-save-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-update-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-add-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-add-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-warehouse-36 %282%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

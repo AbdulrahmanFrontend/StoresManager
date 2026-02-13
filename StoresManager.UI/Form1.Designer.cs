@@ -198,6 +198,9 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragMouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DragMouseUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
