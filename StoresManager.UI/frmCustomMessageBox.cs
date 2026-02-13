@@ -143,5 +143,27 @@ namespace StoresManager
             this.DialogResult = DialogResult.No;
             this.Close();
         }
+
+
+
+
+
+        private void DragMouseDown(object sender, MouseEventArgs e)
+        {
+            clsPublicOperations.DragMouseDown(sender, e);
+        }
+        private void DragMouseMove(object sender, MouseEventArgs e)
+        {
+            clsPublicOperations.DragMouseMove(sender, e);
+        }
+        private void DragMouseUp(object sender, MouseEventArgs e)
+        {
+            clsPublicOperations.DragMouseUp(sender, e);
+        }
+
+
+
+
+
     }
 }

@@ -110,16 +110,19 @@
             // 
             // pnlSide
             // 
-            this.pnlSide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(52)))), ((int)(((byte)(54)))));
+            this.pnlSide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(36)))), ((int)(((byte)(26)))));
             this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSide.Location = new System.Drawing.Point(0, 0);
             this.pnlSide.Name = "pnlSide";
             this.pnlSide.Size = new System.Drawing.Size(10, 198);
             this.pnlSide.TabIndex = 4;
+            this.pnlSide.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragMouseDown);
+            this.pnlSide.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouseMove);
+            this.pnlSide.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DragMouseUp);
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(52)))), ((int)(((byte)(54)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(36)))), ((int)(((byte)(26)))));
             this.pnlHeader.Controls.Add(this.pbIcon);
             this.pnlHeader.Controls.Add(this.lblMessageCaption);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -127,11 +130,14 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(424, 47);
             this.pnlHeader.TabIndex = 5;
+            this.pnlHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragMouseDown);
+            this.pnlHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouseMove);
+            this.pnlHeader.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DragMouseUp);
             // 
             // lblMessageCaption
             // 
             this.lblMessageCaption.AutoSize = true;
-            this.lblMessageCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(52)))), ((int)(((byte)(54)))));
+            this.lblMessageCaption.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(36)))), ((int)(((byte)(26)))));
             this.lblMessageCaption.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessageCaption.ForeColor = System.Drawing.Color.White;
             this.lblMessageCaption.Location = new System.Drawing.Point(5, 17);
@@ -142,16 +148,19 @@
             // 
             // pnlFooter
             // 
-            this.pnlFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(59)))), ((int)(((byte)(72)))));
+            this.pnlFooter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(40)))), ((int)(((byte)(36)))));
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(10, 171);
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(424, 27);
             this.pnlFooter.TabIndex = 5;
+            this.pnlFooter.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragMouseDown);
+            this.pnlFooter.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouseMove);
+            this.pnlFooter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DragMouseUp);
             // 
             // pnlContent
             // 
-            this.pnlContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.pnlContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
             this.pnlContent.Controls.Add(this.lblMessage);
             this.pnlContent.Controls.Add(this.btnNo);
             this.pnlContent.Controls.Add(this.btnOK);
@@ -161,11 +170,14 @@
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(424, 124);
             this.pnlContent.TabIndex = 5;
+            this.pnlContent.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragMouseDown);
+            this.pnlContent.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouseMove);
+            this.pnlContent.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DragMouseUp);
             // 
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(39)))), ((int)(((byte)(46)))));
+            this.lblMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(60)))), ((int)(((byte)(70)))));
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.ForeColor = System.Drawing.Color.White;
             this.lblMessage.Location = new System.Drawing.Point(7, 15);
@@ -176,8 +188,8 @@
             // 
             // pbIcon
             // 
-            this.pbIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(52)))), ((int)(((byte)(54)))));
-            this.pbIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(36)))), ((int)(((byte)(26)))));
+            this.pbIcon.Cursor = System.Windows.Forms.Cursors.Default;
             this.pbIcon.Location = new System.Drawing.Point(380, 6);
             this.pbIcon.Name = "pbIcon";
             this.pbIcon.Size = new System.Drawing.Size(32, 35);

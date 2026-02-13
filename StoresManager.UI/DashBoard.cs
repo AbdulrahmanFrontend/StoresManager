@@ -120,6 +120,8 @@ namespace StoresManager
 
         private void btnStores_Click(object sender, EventArgs e)
         {
+            ShowControl(new ucStores());
+
             HideSubMenu();
 
             SetButtonColors(btnDashboard, InactiveColor);
@@ -204,6 +206,36 @@ namespace StoresManager
         {
             this.Dispose();
         }
+
+
+
+        private void ShowControl(UserControl uc)
+        {
+            uc.Dock = DockStyle.Fill;
+            pnlContent.Controls.Clear();
+            pnlContent.Controls.Add(uc);
+        }
+
+
+
+
+
+
+
+
+        private void DragMouseDown(object sender, MouseEventArgs e)
+        {
+            clsPublicOperations.DragMouseDown(sender, e);
+        }
+        private void DragMouseMove(object sender, MouseEventArgs e)
+        {
+            clsPublicOperations.DragMouseMove(sender, e);
+        }
+        private void DragMouseUp(object sender, MouseEventArgs e)
+        {
+            clsPublicOperations.DragMouseUp(sender, e);
+        }
+
 
 
 

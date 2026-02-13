@@ -518,6 +518,9 @@
             this.pnlTitleBar.Name = "pnlTitleBar";
             this.pnlTitleBar.Size = new System.Drawing.Size(933, 41);
             this.pnlTitleBar.TabIndex = 10;
+            this.pnlTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragMouseDown);
+            this.pnlTitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouseMove);
+            this.pnlTitleBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DragMouseUp);
             // 
             // label1
             // 
