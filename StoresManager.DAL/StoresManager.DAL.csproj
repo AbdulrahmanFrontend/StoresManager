@@ -35,6 +35,7 @@
       <HintPath>..\..\Company.Framework\DAL\bin\Debug\Company.Framework.DAL.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,7 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\class1.cs" />
+    <Compile Include="Data\clsUserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\DbHelper.cs" />
+    <Compile Include="Shared\Logger.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
