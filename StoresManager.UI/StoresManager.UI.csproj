@@ -33,6 +33,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BaseUI">
+      <HintPath>..\..\Company.Framework\BaseUI\bin\Debug\BaseUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Company.Framework\Core\bin\Debug\Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAccessSettings">
+      <HintPath>..\..\Company.Framework\DataAccessSettings\bin\Debug\DataAccessSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="LL">
+      <HintPath>..\StoresManager.DAL\bin\Debug\LL.dll</HintPath>
+    </Reference>
+    <Reference Include="StoresManager.BLL">
+      <HintPath>..\StoresManager.BLL\bin\Debug\StoresManager.BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="StoresManager.Core">
+      <HintPath>..\StoresManager.Core\bin\Debug\StoresManager.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

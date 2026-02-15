@@ -1,62 +1,87 @@
 ﻿using StoresManager.DAL.Data;
+using BLL;
+using Core;
 using StoresManager.DAL.Shared;
 using System;
 using System.Data;
+using Core.Entities;
 
 namespace StoresManager.BLL.Users
 {
-    public class clsUser
+    public class clsUser : clsBaseBusiness
     {
-        [Flags]
-        public enum enPermissions
-        {
-            None = 0,
-            AdminsManagment = 1,
-            UsersManagment = 2,
-            ClientsManagment = 4,
-            PersonalAccountManagment = 8,
-            All = -1
-        }
-        public enum enMode { AddNew = 0, Update = 1 };
-        public enMode Mode = enMode.AddNew;
-        public int UserID { set; get; }
-        public string UserName { set; get; }
-        public string PasswordHash { set; get; }
-        public enPermissions Permissions { set; get; }
-        public bool IsActive { set; get; }
-
+        public clsUserEntity UserInfo { get; private set; }
         public clsUser()
         {
-            this.UserID = -1;
-            this.UserName = "";
-            this.PasswordHash = "";
-            this.Permissions = enPermissions.None;
-            this.IsActive = false;
-            Mode = enMode.AddNew;
+            UserInfo.UserID = -1;
+            UserInfo.UserName = "";
+            UserInfo.PasswordHash = "";
+            UserInfo.Permissions = clsUserEntity.enPermissions.None;
+            UserInfo.IsActive = false;
+            Mode = clsEnums.enMode.enAddNew;
         }
         // private
-        private clsUser(int UserID, string UserName, string PasswordHash, int Permissions, bool IsActive)
+        private clsUser(clsUserEntity UserInfo)
         {
-            this.UserID = UserID;
-            this.UserName = UserName;
-            this.PasswordHash = PasswordHash;
-            this.Permissions = (enPermissions)Permissions;
-            this.IsActive = IsActive;
-            Mode = enMode.Update;
+            this.UserInfo.UserID = UserInfo.UserID;
+            this.UserInfo.UserName = UserInfo.UserName;
+            this.UserInfo.PasswordHash = UserInfo.PasswordHash;
+            this.UserInfo.Permissions = (clsUserEntity.enPermissions)UserInfo.Permissions;
+            this.UserInfo.IsActive = UserInfo.IsActive;
+            Mode = clsEnums.enMode.enUpdate;
         }
-        private bool _AddNewUser()
+        protected override bool _AddNew()
         {
-            string hashedPassword = clsHashGenerator.Hash(this.PasswordHash);
-            this.UserID = (int)clsUserData.AddNewUser(this.UserName, hashedPassword, (int)this.Permissions, this.IsActive);
-            return (this.UserID != -1);
+            string hashedPassword = clsHashGenerator.Hash(this.UserInfo.PasswordHash);
+            this.UserInfo.UserID = (int)clsUserData.AddNewUser(UserInfo);
+            return (this.UserInfo.UserID != -1);
         }
-        private bool _UpdateUser()
+        protected override bool _Update()
         {
-            return clsUserData.UpdateUser(this.UserID, this.UserName, this.PasswordHash, (int)this.Permissions, this.IsActive);
+            return clsUserData.UpdateUser(this.UserInfo);
+        }
+        private bool _IsUserNameUnique()
+        {
+            return clsUserData.IsUserNameUnique(UserInfo.UserName, UserInfo.UserID);
+        }
+        public clsResult ValidateName()
+        {
+            if(clsValidator.IsWithinLength(UserInfo.UserName, 2, 500) 
+                && _IsUserNameUnique())
+            {
+                return clsResult.Success();
+            }
+            return clsResult.Failure("User name must be unique and between 2 and " +
+                "500 characters.");
+
+        }
+        public clsResult ValidatePassword()
+        {
+            if(clsValidator.IsWithinLength(UserInfo.PasswordHash, 3, 50))
+            {
+                return clsResult.Success();
+            }
+            return clsResult.Failure("Password must be between 3 and 50 characters.");
+        }
+        public override clsResult Validate()
+        {
+            if (!ValidateName().IsSuccess)
+            {
+                return clsResult.Failure(ValidateName().Message);
+            }
+            if (!ValidatePassword().IsSuccess)
+            {
+                return clsResult.Failure(ValidatePassword().Message);
+            }
+            return clsResult.Success();
         }
         // public
         public static bool DeleteUser(int UserID)
         {
+            if(!clsUserData.IsUserExistByUserID(UserID))
+            {
+                return false;
+            }
             return clsUserData.DeleteUser(UserID);
         }
         public static bool IsUserExistByUserID(int UserID)
@@ -69,51 +94,19 @@ namespace StoresManager.BLL.Users
         }
         public static clsUser FindByUserID(int UserID)
         {
-            string UserName = "";
-            string PasswordHash = "";
-            int Permissions = -1;
-            bool IsActive = false;
-
-            bool IsFound = clsUserData.GetUserByUserID(UserID, ref UserName, ref PasswordHash, ref Permissions, ref IsActive);
-
-            if (IsFound)
-                return new clsUser(UserID, UserName, PasswordHash, Permissions, IsActive);
+            clsUserEntity UserInfo = clsUserData.GetUserByUserID(UserID);
+            if (UserInfo != null)
+                return new clsUser(UserInfo);
             else
                 return null;
         }
         public static clsUser FindByUserName(string UserName)
         {
-            int UserID = -1;
-            string PasswordHash = "";
-            int Permissions = -1;
-            bool IsActive = false;
-
-            bool IsFound = clsUserData.GetUserByUserName(ref UserID, UserName, ref PasswordHash, ref Permissions, ref IsActive);
-
-            if (IsFound)
-                return new clsUser(UserID, UserName, PasswordHash, Permissions, IsActive);
+            clsUserEntity UserInfo = clsUserData.GetUserByUserName(UserName);
+            if (UserInfo != null)
+                return new clsUser(UserInfo);
             else
                 return null;
-        }
-        public bool Save()
-        {
-            switch (Mode)
-            {
-                case enMode.AddNew:
-                    if (_AddNewUser())
-                    {
-                        Mode = enMode.Update;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                case enMode.Update:
-                    return _UpdateUser();
-            }
-            return false;
         }
         public static DataTable GetUsers()
         {
@@ -123,9 +116,18 @@ namespace StoresManager.BLL.Users
         {
             if (!clsUserData.IsUsersTableEmpty())
                 return false;
-            clsUser Admin = new clsUser(-1, Username, Password, -1, true);
-            Admin.Mode = enMode.AddNew;
-            if (Admin.Save())
+
+            clsUserEntity UserInfo = new clsUserEntity
+            {
+                UserID = -1,
+                UserName = Username,
+                PasswordHash = Password,
+                Permissions = (clsUserEntity.enPermissions)(-1),
+                IsActive = true
+            };
+            clsUser Admin = new clsUser(UserInfo);
+            Admin.Mode = clsEnums.enMode.enAddNew;
+            if (Admin.Save().IsSuccess)
                 return true;
             return false;
         }
@@ -135,33 +137,34 @@ namespace StoresManager.BLL.Users
             user = FindByUserName(Username);
             if (user != null)
             {
-                if (user.IsActive == true)
-                    if (clsHashGenerator.Hash(Password) == user.PasswordHash) return true;
+                if (user.UserInfo.IsActive == true)
+                    if (clsHashGenerator.Hash(Password) == user.UserInfo.PasswordHash) 
+                        return true;
             }
             return false;
         }
         public bool AddNewUser(clsUser newUser)
         {
-            if (Permissions != enPermissions.All)
+            if (UserInfo.Permissions != clsUserEntity.enPermissions.All)
             {
                 Logger.LogError("You don`t have an access to add users!", null);
                 return false;
             }
-            if (newUser._AddNewUser())
+            if (newUser._AddNew())
                 return true;
             return false;
         }
-        public void AddPermission(enPermissions permissionToAdd)
+        public void AddPermission(clsUserEntity.enPermissions permissionToAdd)
         {
-            Permissions |= permissionToAdd;
+            UserInfo.Permissions |= permissionToAdd;
         }
-        public void RemovePermission(enPermissions permissionToRemove)
+        public void RemovePermission(clsUserEntity.enPermissions permissionToRemove)
         {
-            Permissions &= ~permissionToRemove;
+            UserInfo.Permissions &= ~permissionToRemove;
         }
-        public bool HasPermission(enPermissions permissionToCheck)
+        public bool HasPermission(clsUserEntity.enPermissions permissionToCheck)
         {
-            return (Permissions & permissionToCheck) == permissionToCheck;
+            return (UserInfo.Permissions & permissionToCheck) == permissionToCheck;
         }
     }
 }

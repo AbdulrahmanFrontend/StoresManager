@@ -31,6 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Company.Framework\BLL\bin\Debug\BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Company.Framework\Core\bin\Debug\Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Company.Framework\LL\bin\Debug\LL.dll</HintPath>
+    </Reference>
+    <Reference Include="StoresManager.Core">
+      <HintPath>..\StoresManager.Core\bin\Debug\StoresManager.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,9 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\clsHashGenerator.cs" />
     <Compile Include="Users\clsUser.cs" />
   </ItemGroup>
   <ItemGroup>
