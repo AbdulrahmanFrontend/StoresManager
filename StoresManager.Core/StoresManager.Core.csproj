@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78B22035-87B3-439B-B036-B27851035D60}</ProjectGuid>
+    <ProjectGuid>{9945DCDF-A15A-4430-A90B-258BC5097FFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StoresManager.DAL</RootNamespace>
-    <AssemblyName>StoresManager.DAL</AssemblyName>
+    <RootNamespace>StoresManager.Core</RootNamespace>
+    <AssemblyName>StoresManager.Core</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,21 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Core">
-      <HintPath>..\..\Company.Framework\Core\bin\Debug\Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DAL">
-      <HintPath>..\..\Company.Framework\DAL\bin\Debug\DAL.dll</HintPath>
-    </Reference>
-    <Reference Include="LL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Company.Framework\LL\bin\Debug\LL.dll</HintPath>
-    </Reference>
-    <Reference Include="StoresManager.Core">
-      <HintPath>..\StoresManager.Core\bin\Debug\StoresManager.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,14 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\clsUserData.cs" />
+    <Compile Include="Entities\clsUserEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared\DbHelper.cs" />
-    <Compile Include="Shared\Logger.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

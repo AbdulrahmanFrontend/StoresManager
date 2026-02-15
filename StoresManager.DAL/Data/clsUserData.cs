@@ -1,5 +1,6 @@
-﻿using StoresManager.DAL.Shared;
-using System;
+﻿using Core.Entities;
+using StoresManager.DAL.Shared;
+using System; 
 using System.Data;
 using System.Data.SqlClient;
 
@@ -7,66 +8,73 @@ namespace StoresManager.DAL.Data
 {
     public class clsUserData
     {
-        public static bool GetUserByID(int UserID, ref string UserName, ref string PasswordHash, ref int Permissions, ref bool IsActive)
+        public static clsUserEntity GetUserByUserID(int UserID)
         {
             string query = "SELECT * FROM Users WHERE UserID = @UserID";
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserID", UserID)
+                new SqlParameter("@UserID", SqlDbType.Int) { Value = UserID}
             };
 
             DataRow row = DbHelper.GetFirstRow(query, parameters);
 
             if (row != null)
             {
-                UserName = row["UserName"].ToString();
-                PasswordHash = row["PasswordHash"].ToString();
-                Permissions = Convert.ToInt32(row["Permissions"]);
-                IsActive = Convert.ToBoolean(row["IsActive"]);
-                return true;
+                return new clsUserEntity
+                {
+                    UserID = Convert.ToInt32(row["UserID"]),
+                    UserName = row["UserName"].ToString(),
+                    PasswordHash = row["PasswordHash"].ToString(),
+                    Permissions = 
+                    (clsUserEntity.enPermissions)Convert.ToInt32(row["Permissions"]),
+                    IsActive = Convert.ToBoolean(row["IsActive"])
+                };
             }
 
-            return false;
+            return null;
         }
-        public static bool GetUserByUserID(int UserID, ref string UserName, ref string PasswordHash, ref int Permissions, ref bool IsActive)
-        {
-            return GetUserByID(UserID, ref UserName, ref PasswordHash, ref Permissions, ref IsActive);
-        }
-        public static bool GetUserByUserName(ref int UserID, string UserName, ref string PasswordHash, ref int Permissions, ref bool IsActive)
+        public static clsUserEntity GetUserByUserName(string UserName)
         {
             string query = "SELECT * FROM Users WHERE UserName = @UserName";
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserName", UserName)
+                new SqlParameter("@UserName", SqlDbType.NVarChar, 500) 
+                { Value = UserName }
             };
 
             DataRow row = DbHelper.GetFirstRow(query, parameters);
 
             if (row != null)
             {
-                UserID = Convert.ToInt32(row["UserID"]);
-                PasswordHash = row["PasswordHash"].ToString();
-                Permissions = Convert.ToInt32(row["Permissions"]);
-                IsActive = Convert.ToBoolean(row["IsActive"]);
-                return true;
+                return new clsUserEntity
+                {
+                    UserID = Convert.ToInt32(row["UserID"]),
+                    UserName = row["UserName"].ToString(),
+                    PasswordHash = row["PasswordHash"].ToString(),
+                    Permissions = 
+                    (clsUserEntity.enPermissions)Convert.ToInt32(row["Permissions"]),
+                    IsActive = Convert.ToBoolean(row["IsActive"])
+                };
             }
 
-            return false;
+            return null;
         }
-        public static int AddNewUser(string UserName, string PasswordHash, int Permissions, bool IsActive)
+        public static int AddNewUser(clsUserEntity UserInfo)
         {
-            string query = @"INSERT INTO Users (UserName, PasswordHash, Permissions, IsActive)
-                             VALUES (@UserName, @PasswordHash, @Permissions, @IsActive);
+            string query = @"INSERT INTO Users (UserName, PasswordHash, Permissions)
+                             VALUES (@UserName, @PasswordHash, @Permissions);
                              SELECT SCOPE_IDENTITY();";
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserName", UserName),
-                new SqlParameter("@PasswordHash", PasswordHash),
-                new SqlParameter("@Permissions", Permissions),
-                new SqlParameter("@IsActive", IsActive)
+                new SqlParameter("@UserName", SqlDbType.NVarChar, 500)
+                { Value = UserInfo.UserName },
+                new SqlParameter("@PasswordHash", SqlDbType.NVarChar, 50) 
+                { Value = UserInfo.PasswordHash },
+                new SqlParameter("@Permissions", SqlDbType.Int) 
+                { Value = UserInfo.Permissions },
             };
 
             object result = DbHelper.GetScalar(query, parameters);
@@ -76,7 +84,7 @@ namespace StoresManager.DAL.Data
 
             return -1;
         }
-        public static bool UpdateUser(int UserID, string UserName, string PasswordHash, int Permissions, bool IsActive)
+        public static bool UpdateUser(clsUserEntity UserInfo)
         {
             string query = @"UPDATE Users SET 
                                 UserName = @UserName,
@@ -87,11 +95,15 @@ namespace StoresManager.DAL.Data
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserID", UserID),
-                new SqlParameter("@UserName", UserName),
-                new SqlParameter("@PasswordHash", PasswordHash),
-                new SqlParameter("@Permissions", Permissions),
-                new SqlParameter("@IsActive", IsActive)
+                new SqlParameter("@UserID", SqlDbType.Int) { Value = UserInfo.UserID },
+                new SqlParameter("@UserName", SqlDbType.NVarChar, 500)
+                { Value = UserInfo.UserName },
+                new SqlParameter("@PasswordHash", SqlDbType.NVarChar, 50)
+                { Value = UserInfo.PasswordHash },
+                new SqlParameter("@Permissions", SqlDbType.Int)
+                { Value = UserInfo.Permissions },
+                new SqlParameter("@IsActive", SqlDbType.Bit) 
+                { Value = UserInfo.IsActive },
             };
 
             return DbHelper.ExecuteNonQuery(query, parameters) > 0;
@@ -102,7 +114,7 @@ namespace StoresManager.DAL.Data
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserID", UserID)
+                new SqlParameter("@UserID", SqlDbType.Int) { Value = UserID }
             };
 
             return DbHelper.ExecuteNonQuery(query, parameters) > 0;
@@ -113,7 +125,7 @@ namespace StoresManager.DAL.Data
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserID", UserID)
+                new SqlParameter("@UserID", SqlDbType.Int) { Value = UserID }
             };
 
             object result = DbHelper.GetScalar(query, parameters);
@@ -135,7 +147,8 @@ namespace StoresManager.DAL.Data
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("@UserName", UserName)
+                new SqlParameter("@UserName", SqlDbType.NVarChar, 500)
+                { Value = UserName },
             };
 
             object result = DbHelper.GetScalar(query, parameters);
@@ -145,6 +158,19 @@ namespace StoresManager.DAL.Data
         {
             string query = "SELECT * FROM Users";
             return DbHelper.GetDataTable(query);
+        }
+        public static bool IsUserNameUnique(string UserName, int UserID)
+        {
+            string Query = $"SELECT IsFound = 1 FROM Users WHERE UserName = @UserName " +
+                $"AND UserID != @UserID";
+            SqlParameter[] Parameters = new SqlParameter[]
+            {
+                new SqlParameter(@"@UserName", SqlDbType.NVarChar, 500)
+                { Value = UserName },
+                new SqlParameter("@UserID", SqlDbType.Int) { Value = UserID },
+            };
+            object Result = DbHelper.GetScalar(Query, Parameters);
+            return Result == null;
         }
     }
 }
